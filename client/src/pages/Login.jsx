@@ -23,9 +23,11 @@ const Login = () => {
 
   // Validation schema for login form
   const validationSchema = Yup.object({
-    loginInput: Yup.string().required('Required'), // Email/username/phone required
-    password: Yup.string().required('Required'), // Password required
-  });
+  loginInput: Yup.string()
+    .required('Please enter your email, username, or phone'),
+  password: Yup.string()
+    .required('Please enter your password'),
+});
 
   return (
     // Centered container box
@@ -51,28 +53,40 @@ const Login = () => {
       >
         {({ errors, touched }) => (
           <Form>
-            <VStack spacing="4">
-              {/* Login input field (email/username/phone) */}
-              <Input 
-                name="loginInput" 
-                as={Field} 
-                placeholder="Email, Username or Phone"
-                isInvalid={errors.loginInput && touched.loginInput}
-              />
-              
-              {/* Password input field */}
-              <Input 
-                name="password" 
-                as={Field} 
-                type="password" 
-                placeholder="Password"
-                isInvalid={errors.password && touched.password}
-              />
-              
-              {/* Submit button */}
-              <Button type="submit" colorScheme="orange" width="full">Sign In</Button>
-            </VStack>
-          </Form>
+  <VStack spacing="4">
+    
+    {/* Login Input Field */}
+    <Input 
+      name="loginInput" 
+      as={Field} 
+      placeholder="Email, Username or Phone"
+      isInvalid={errors.loginInput && touched.loginInput} 
+    />
+    {/* 👇 ADD THIS LINE: Show error message 👇 */}
+    {errors.loginInput && touched.loginInput && (
+      <Text color="red.500" fontSize="sm" mt="1" role="alert">
+        {errors.loginInput}
+      </Text>
+    )}
+    
+    {/* Password Field */}
+    <Input 
+      name="password" 
+      as={Field} 
+      type="password" 
+      placeholder="Password"
+      isInvalid={errors.password && touched.password}
+    />
+    {/* 👇 ADD THIS LINE: Show error message 👇 */}
+    {errors.password && touched.password && (
+      <Text color="red.500" fontSize="sm" mt="1" role="alert">
+        {errors.password}
+      </Text>
+    )}
+    
+    <Button type="submit" colorScheme="orange" width="full">Sign In</Button>
+  </VStack>
+</Form>
         )}
       </Formik>
       
