@@ -10,7 +10,6 @@ const app = express(); // Initialize Express app
 
 // Security Middleware
 app.use(helmet()); // Sets secure HTTP headers to hide server info
-// Find the CORS section and update it:
 
 app.use(cors({
   origin: [
