@@ -1,86 +1,93 @@
-# ☕ETHIOPIAN COFFEE AND TOURISM APP with Authentication System
+# ☕ Ethiopian Coffee & Tourism
 
-A secure full-stack authentication app with responsive landing page discribing the origion of coffee(ETHIOPIA) and about coffee. Users can sign up, login, and there data will be stored in the database.
+> **From Ethiopian Highlands to Your Cup** 🇪🇹
+
+A full-stack web platform showcasing Ethiopian coffee culture and tourism experiences with secure authentication and immersive design.
 
 ---
 
-## 🛠️ Tech Stack
+## 🌟 Features
+
+- **Secure Authentication** — JWT-based login/signup with protected routes
+- **Responsive Design** — Seamless experience across all devices (280px–4K)
+- **Immersive UI** — Full-width backgrounds, smooth animations, zigzag layout
+- **Tourism Content** — Coffee culture, heritage info, and travel highlights
+- **Performance Optimized** — Fast load times, optimized images, clean code
+
+---
+
+## 🛠 Tech Stack
 
 | Frontend | Backend | Database |
 |----------|---------|----------|
 | React 18 + Vite | Node.js + Express | PostgreSQL |
-| Chakra UI | Prisma ORM | |
-| React Router | JWT + bcrypt | |
-| Formik + Yup | express-validator | |
-
----
-
-## ✨ Features
-
-- ✅ User signup with strong password validation
-- ✅ Login with username, email, or phone
-- ✅ JWT token-based authentication
-- ✅ Password hashing (bcrypt)
-- ✅ Protected routes (redirect if not logged in)
-- ✅ Input sanitization & validation
-- ✅ Rate limiting & CORS security
-- ✅ Responsive coffee menu UI
-
----
-
-## 📁 Project Structure
-authappfinal/
-├── client/ # React Frontend
-├── server/ # Node.js Backend
-│ ├── .env.example # Environment template (safe to commit)
-│ └── .env # Actual secrets (NEVER commit)
-├── .gitignore
-└── README.md
+| Bootstrap 5 | Prisma ORM | JWT Auth |
+| React Router | bcryptjs | express-validator |
 
 ---
 
 ## 🚀 Quick Start
 
-### 1. Clone Repository
 ```bash
-git clone https://github.com/continental-bb/coffee-auth-app.git
-cd coffee-auth-app
+# Clone & Install
+git clone https://github.com/YOUR_USERNAME/ethiopian-coffee-tourism.git
+cd ethiopian-coffee-tourism
+cd server && npm install && cd ../client && npm install
 
-2. Install Dependencies
-# Backend
-cd server
-npm install
-npx prisma generate
-npx prisma db push
+# Setup & Run
+cd server && npx prisma migrate dev --name init
+cd server && node server.js          # Terminal 1
+cd client && npm run dev             # Terminal 2
 
-# Frontend (new terminal)
-cd ../client
-npm install
-3. Setup Environment Variables
-# In server folder, create .env from example
-cp .env.example .env
-# Then edit .env with your actual database credentials
-4. Run Application
-# Backend (server folder)
-npm run dev
+```
+Access: http://localhost:5173
+📁 Project Structure
+ethiopian-coffee-tourism/
+├── client/              # React Frontend
+│   ├── src/
+│   │   ├── assets/      # Images
+│   │   ├── components/  # Navbar
+│   │   ├── context/     # Auth Context
+│   │   └── pages/       # Landing, Login, Signup
+│   └── package.json
+│
+├── server/              # Node.js Backend
+│   ├── controllers/     # Auth Logic
+│   ├── middleware/      # JWT & Validation
+│   ├── routes/          # API Endpoints
+│   ├── prisma/          # Database Schema
+│   └── package.json
+│
+└── README.md
 
-# Frontend (client folder, new terminal)
-npm run dev
- Open: http://localhost:5173
+API Endpoints 
+Method  Endpoint              Description  
+POST    /api/auth/signup      Register user 
+POST    /api/auth/signin      Login user   
+GET     /api/auth/verify      Verify token  
+POST    /api/auth/logout      Logout user
 
+Responsive Breakpoints
+Device   Width   Layout
+Desktop  1024px+  Full zigzag
+Tablet   768–1023px Adjusted
+Mobile   376–767px  Stacked
+Small    280–375px  Compact
+Compact
 
-🔐 Security Implemented
-Password hashing with bcrypt
+ Security
+Password hashing (bcrypt)
 JWT token authentication
-Input sanitization (XSS protection)
-Rate limiting (100 req/15min)
-CORS policy
-Helmet security headers
+Input validation & sanitization
+CORS protection
+Rate limiting
 
-environment
-👨‍💻 Author
- Name BTS 
-GitHub: @continental-bb
-
+ Visual Highlights
+Hero Section — Full viewport background with overlay
+Experience Section — Coffee ceremony imagery + cultural storytelling
+Origin Section — Ethiopian highlands + journey narrative
+Continuous Background — Seamless roasted coffee theme throughout
 📄 License
-MIT License
+MIT License © 2025
+👨‍💻 Built With
+React · Node.js · PostgreSQL · Prisma · Bootstrap
