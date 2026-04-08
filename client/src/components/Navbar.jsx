@@ -12,10 +12,9 @@ const CustomNavbar = () => {
     <Navbar bg="dark" variant="dark" fixed="top" className="custom-navbar">
       <Container fluid>
         <Navbar.Brand as={Link} to="/" className="navbar-brand">
-          ☕ETHIOPIAN COFFEE AND TOURISM 
+          ETHIOPIAN COFFEE AND TOURISM
         </Navbar.Brand>
 
-        {/* ALL LINKS ALWAYS VISIBLE - NO HAMBURGER */}
         <Nav className="ms-auto nav-bars">
           <Nav.Link as={Link} to="/" className={`nav-bar ${location.pathname === '/' ? 'active' : ''}`}>
             Home
@@ -23,30 +22,30 @@ const CustomNavbar = () => {
           
           <Nav.Link 
             as="a" 
-            href="#about-coffee" 
+            href="#experience" 
             className="nav-bar"
             onClick={(e) => {
               if (location.pathname !== '/') {
                 e.preventDefault();
-                window.location.href = '/#about-coffee';
+                window.location.href = '/#experience';
               }
             }}
           >
-            About Coffee
+            Experience
           </Nav.Link>
           
           <Nav.Link 
             as="a" 
-            href="#about-ethiopia" 
+            href="#origin" 
             className="nav-bar"
             onClick={(e) => {
               if (location.pathname !== '/') {
                 e.preventDefault();
-                window.location.href = '/#about-ethiopia';
+                window.location.href = '/#origin';
               }
             }}
           >
-            About Ethiopia
+            Origin
           </Nav.Link>
 
           <div className="nav-divider"></div>
