@@ -1,4 +1,4 @@
-# ☕ Ethiopian Coffee & Tourism
+#  Ethiopian Coffee & Tourism
 
 > **From Ethiopian Highlands to Your Cup** 🇪🇹
 
@@ -6,7 +6,7 @@ A full-stack web platform showcasing Ethiopian coffee culture and tourism experi
 
 ---
 
-## 🌟 Features
+##  Features
 
 - **Secure Authentication** — JWT-based login/signup with protected routes
 - **Responsive Design** — Seamless experience across all devices (280px–4K)
@@ -16,7 +16,7 @@ A full-stack web platform showcasing Ethiopian coffee culture and tourism experi
 
 ---
 
-## 🛠 Tech Stack
+##  Tech Stack
 
 | Frontend | Backend | Database |
 |----------|---------|----------|
@@ -26,7 +26,7 @@ A full-stack web platform showcasing Ethiopian coffee culture and tourism experi
 
 ---
 
-## 🚀 Quick Start
+##  Quick Start
 
 ```bash
 # Clone & Install
