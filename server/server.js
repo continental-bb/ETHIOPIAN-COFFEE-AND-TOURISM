@@ -10,7 +10,17 @@ const app = express(); // Initialize Express app
 
 // Security Middleware
 app.use(helmet()); // Sets secure HTTP headers to hide server info
-app.use(cors()); // Allows requests from your React frontend (Cross-Origin)
+// Find the CORS section and update it:
+
+app.use(cors({
+  origin: [
+    'http://localhost:5173',
+    'https://ethiopian-coffee-tourism.vercel.app'
+  ],
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));// Allows requests from your React frontend (Cross-Origin)
 app.use(xss()); // Cleans user input from malicious scripts
 
 // Rate Limiting (Prevent brute force attacks)
