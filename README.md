@@ -1,6 +1,6 @@
-# ☕ Coffee House Authentication System
+# ☕ETHIOPIAN COFFEE AND TOURISM APP with Authentication System
 
-A secure full-stack authentication app for a coffee house menu. Users can sign up, login, and view protected menu items.
+A secure full-stack authentication app with responsive landing page discribing the origion of coffee(ETHIOPIA) and about coffee. Users can sign up, login, and there data will be stored in the database.
 
 ---
 

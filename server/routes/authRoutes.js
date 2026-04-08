@@ -9,9 +9,9 @@ const signupRules = [
   body('username').trim().isLength({ min: 3 }).escape(), // Username min 3 chars, remove HTML
   body('email').isEmail().normalizeEmail(), // Must be valid email format
   body('phone').isMobilePhone(), // Must be valid phone number
-  body('password').isStrongPassword({ // Password must be strong
-    minLength: 8, minLowercase: 1, minUppercase: 1, minNumbers: 1, minSymbols: 1 
-  }),
+  body('password')
+   .isLength({ min: 8 })
+   .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]/),
   validate // Run the validation middleware to check rules
 ];
 

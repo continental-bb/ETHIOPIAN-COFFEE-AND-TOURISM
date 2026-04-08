@@ -1,102 +1,125 @@
-// Import Chakra UI components for styling
-import { Box, Button, Input, VStack, Text, Heading } from '@chakra-ui/react';
-
-// Import Formik for form handling
-import { Formik, Form, Field } from 'formik';
-
-// Import Yup for validation schema
-import * as Yup from 'yup';
-
-// Import useAuth for login function
+import React, { useState } from 'react';
+import { Container, Form, Button, Card, Alert } from 'react-bootstrap';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import './Login.css';
 
-// Import navigation hooks
-import { useNavigate, Link } from 'react-router-dom';
-
-// Login page component
 const Login = () => {
-  // Get login function from auth context
-  const { login } = useAuth();
+  const [loginInput, setLoginInput] = useState('');
+  const [password, setPassword] = useState('');
+  const [fieldErrors, setFieldErrors] = useState({});
+  const [generalError, setGeneralError] = useState('');
+  const [loading, setLoading] = useState(false);
   
-  // Get navigate function for redirecting after login
+  const { login } = useAuth();
   const navigate = useNavigate();
 
-  // Validation schema for login form
-  const validationSchema = Yup.object({
-  loginInput: Yup.string()
-    .required('Please enter your email, username, or phone'),
-  password: Yup.string()
-    .required('Please enter your password'),
-});
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setGeneralError('');
+    setFieldErrors({});
+    setLoading(true);
+
+    const result = await login(loginInput, password);
+    
+    if (result.success) {
+      sessionStorage.setItem('loginSuccess', 'Signed in successfully!');
+      navigate('/');
+    } else {
+      setGeneralError(result.message);
+      
+      const errorsMap = {};
+      if (result.errors && Array.isArray(result.errors)) {
+        result.errors.forEach(err => {
+          const fieldName = err.path || err.param;
+          errorsMap[fieldName] = err.msg;
+        });
+      }
+      setFieldErrors(errorsMap);
+    }
+    
+    setLoading(false);
+  };
 
   return (
-    // Centered container box
-    <Box maxW="md" mx="auto" mt="10">
-      {/* Page heading */}
-      <Heading mb="6" color="brown.500">☕ Coffee House Login</Heading>
-      
-      {/* Formik form with validation */}
-      <Formik
-        initialValues={{ loginInput: '', password: '' }} // Empty initial values
-        validationSchema={validationSchema} // Apply validation rules
-        onSubmit={async (values, { setErrors }) => {
-          try {
-            // Call login function with form values
-            await login(values.loginInput, values.password);
-            // Redirect to menu on success
-            navigate('/menu');
-          } catch (err) {
-            // Show error if login fails
-            setErrors({ loginInput: 'Invalid credentials' });
-          }
-        }}
-      >
-        {({ errors, touched }) => (
-          <Form>
-  <VStack spacing="4">
-    
-    {/* Login Input Field */}
-    <Input 
-      name="loginInput" 
-      as={Field} 
-      placeholder="Email, Username or Phone"
-      isInvalid={errors.loginInput && touched.loginInput} 
-    />
-    {/* 👇 ADD THIS LINE: Show error message 👇 */}
-    {errors.loginInput && touched.loginInput && (
-      <Text color="red.500" fontSize="sm" mt="1" role="alert">
-        {errors.loginInput}
-      </Text>
-    )}
-    
-    {/* Password Field */}
-    <Input 
-      name="password" 
-      as={Field} 
-      type="password" 
-      placeholder="Password"
-      isInvalid={errors.password && touched.password}
-    />
-    {/* 👇 ADD THIS LINE: Show error message 👇 */}
-    {errors.password && touched.password && (
-      <Text color="red.500" fontSize="sm" mt="1" role="alert">
-        {errors.password}
-      </Text>
-    )}
-    
-    <Button type="submit" colorScheme="orange" width="full">Sign In</Button>
-  </VStack>
-</Form>
-        )}
-      </Formik>
-      
-      {/* Link to signup page */}
-      <Text mt="4">
-        New here? <Link to="/signup" style={{color: 'blue'}}>Create Account</Link>
-      </Text>
-    </Box>
+    <div className="login-container"> {/* ✅ Full background wrapper */}
+      <Card className="shadow-lg border-0">
+        <Card.Body className="p-5">
+          <h2 className="text-center mb-4">Welcome Back</h2>
+          
+          {generalError && (
+            <Alert variant="danger" className="mb-4">
+              <i className="fas fa-exclamation-circle me-2"></i>
+              {generalError}
+            </Alert>
+          )}
+          
+          <Form onSubmit={handleSubmit}>
+            <Form.Group className="mb-3">
+              <Form.Label>Email, Username, or Phone</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Enter your identifier"
+                value={loginInput}
+                onChange={(e) => {
+                  setLoginInput(e.target.value);
+                  if (fieldErrors.identifier) setFieldErrors({...fieldErrors, identifier: ''});
+                }}
+                isInvalid={!!fieldErrors.identifier}
+                required
+              />
+              <Form.Control.Feedback type="invalid">
+                {fieldErrors.identifier}
+              </Form.Control.Feedback>
+            </Form.Group>
+
+            <Form.Group className="mb-3">
+              <Form.Label>Password</Form.Label>
+              <Form.Control
+                type="password"
+                placeholder="Enter password"
+                value={password}
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                  if (fieldErrors.password) setFieldErrors({...fieldErrors, password: ''});
+                }}
+                isInvalid={!!fieldErrors.password}
+                required
+              />
+              <Form.Control.Feedback type="invalid">
+                {fieldErrors.password}
+              </Form.Control.Feedback>
+            </Form.Group>
+
+            <Button 
+              variant="dark" 
+              type="submit" 
+              className="w-100 mb-3"
+              disabled={loading}
+            >
+              {loading ? (
+                <>
+                  <span className="spinner-border spinner-border-sm me-2"></span>
+                  Signing in...
+                </>
+              ) : (
+                'Sign In'
+              )}
+            </Button>
+
+            <div className="text-center">
+              <p className="mb-0">
+                Don't have an account? <Link to="/signup">Sign Up</Link>
+              </p>
+              <p className="mt-2 mb-0">
+                <Link to="/">← Back to Home</Link>
+              </p>
+            </div>
+          </Form>
+        </Card.Body>
+      </Card>
+    </div>
   );
 };
 
-// Export component
 export default Login;
