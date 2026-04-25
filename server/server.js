@@ -21,9 +21,9 @@ app.use(helmet());
 // ✅ CORS - FIXED TO ALLOW FRONTEND
 app.use(cors({
   origin: [
-    'http://localhost:5173',           // Vite dev server
-    'http://localhost:3000',           // Alternative port
-    'https://your-vercel-app.vercel.app' // Add production URL later
+    'http://localhost:5173',                                    // Local dev
+    'https://ethiopian-coffee-tourism.vercel.app',             // Your Vercel URL
+    'https://your-custom-domain.com'                           // Add later if needed
   ],
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
